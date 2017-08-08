@@ -32,11 +32,15 @@ Place* Islands::find(std::forward_list<Place*>& places) {
         if innerloopplace->distToNearestPlace < potentialIsland->distToNearestPlace
           innerloopplace->isPotentialIsland = false
           innerloopplace->nearestPlace->isPotentialIsland = false
-          potentialsRemaining -= 2
+          AND if innerloopplace->nearestPlace->nearestPlace != innerloopplace
+            innerloopplace->nearestPlace->nearestPlace->isPotentialIsland = false
+            innerloopplace->nearestPlace->nearestPlace->nearestPlace->isPotentialIsland = false
+          potentialsRemaining -= however many get falsified
         else
           potentialIsland->isPotentialIsland = false
           potentialIsland->nearestPlace->isPotentialIsland = false
-          potentialsRemaining -= 2
+          same recursive call here for setting not potential
+          potentialsRemaining -= however many get falsified
           return innerloopplace
         return NULL
 

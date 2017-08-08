@@ -3,6 +3,7 @@
 
 #include <string>
 #include "vector2d.h"
+#include "geometry.h"
 
 struct Place {
 
@@ -18,8 +19,16 @@ struct Place {
   inline const std::string id() const {return _id;};
   inline const Vector2D position() const {return *_position;};
   inline const Place nearestPlace() const {return *_nearestPlace;};
+  //TODO: optimise
+  inline const long distanceToNearestPlace() const {return _nearestPlace == (Place*)0 ? 0 : Geometry::distanceBetween(*_position, _nearestPlace->position());};
 
-  inline void setNearestPlace(Place* place) {_nearestPlace = place;};
+  inline bool setNearestPlace(Place* place) {
+    if (this == place || place == (Place*)0) {
+      return false;
+    }
+    _nearestPlace = place;
+    return true;
+  };
 
   inline const bool operator==(const Place& rhs) const {
     return this->id() == rhs.id() && this->position() == rhs.position();
