@@ -41,7 +41,7 @@ islander : $(OBJS) unit_test
 	g++ $(OBJS) -o bin/islander -Wall $(LIBFLAGS) $(CFLAGS)
 
 clean :
-	rm -f $(OBJS) $(TESTOBJS)
+	rm -f $(PCH_OUT) $(OBJS) $(TESTOBJS)
 
 $(PCH_OUT): $(PCH_SRC) $(PCH_HEADERS)
 	g++ -Iinclude -Wall $(CFLAGS) -o $@ $<
