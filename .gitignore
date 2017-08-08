@@ -31,3 +31,5 @@
 *.out
 *.app
 problem_statement.txt
+!bin/.keep
+pseudo

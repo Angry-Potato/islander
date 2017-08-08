@@ -1,0 +1,80 @@
+x = width
+points = []
+candidates = vector
+candidates = points
+
+  for each point
+    p = point to scalar
+    put p into sorted list
+
+
+island = first in sorted list
+biggestClosestNeighbourDist = 0
+for each p in sorted list
+  closestNeighbourDist = p+1 - p < p - p-1 ? p+1 - p : p - p-1
+  if closestNeighbourDist > biggestClosestNeighbourDist
+    biggestClosestNeighbourDist = closestNeighbourDist
+    island = p
+
+
+int pointToScalar(p)
+  thing = (p.y / p.x)
+  return thing * atan(thing)
+
+
+main.cpp
+
+  main()
+    filename = argv(file)
+    Reader = new FileInput(filename)
+    Factory = new Vector2dFactory
+    Transform = new Vector2dToScalar
+    Aggregator = new SortedArray
+    data = DataPrep::prep(Reader, Factory, Transform, Aggregator)
+    Writer = new ConsoleOutput()
+    IslandFinder f;
+    f.run(Reader, Writer)
+
+Vector2d : Transformable
+  X, Y, id
+
+Scalar : Sortable
+  size, id
+  value() return size
+
+Vector2dToScalar
+  static inline Transform(Vector2d v)
+    thing = (v.y / v.x)
+    return thing * atan(thing)
+
+
+
+SortedArray
+  vector * Sortable
+  insert(Sortable* p)
+    for each sortable in Sortable
+      if p->value() < sortable->value()
+        insert p here
+        break;
+
+  finalise()
+  return Sortable->toArray
+
+
+
+
+
+DataPrep
+  prep(Reader, Factory, Transform, Aggregator)
+    Transformable* p;
+    while(p = Factory->create(Reader->next()))
+      tp = Transform(p)
+      Aggregator.insert(tp)
+
+    return Aggregator.finalise()
+
+
+
+
+IslandFinder f
+  run(Reader, Writer)
