@@ -41,8 +41,8 @@ TEST_SUITE("Geometry::distanceBetween") {
     Vector2D v2(v2X, v2Y);
 
     SUBCASE("Distance between should be root(difference in X + difference in Y)") {
-      long XDiff = v1.X() - v2.X();
-      long YDiff = v1.Y() - v2.Y();
+      long XDiff = v1X - v2X;
+      long YDiff = v1Y - v2Y;
       long expected = sqrt(XDiff*XDiff + YDiff*YDiff);
       CHECK(Geometry::distanceBetween(&v1, &v2) == expected);
     }
