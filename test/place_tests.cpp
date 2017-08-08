@@ -133,11 +133,15 @@ TEST_SUITE("Place::setNearestPlace") {
 TEST_SUITE("Place::notPotentialIsland") {
   TEST_CASE("Setting notPotentialIsland on place with no nearestPlace") {
     Place sut;
-    sut.notPotentialIsland();
+    long potentialsRemaining = 1;
+    sut.notPotentialIsland(potentialsRemaining);
 
     REQUIRE(sut.nearestPlace() == (Place*)NULL);
     SUBCASE("isPotentialIsland returns false") {
       CHECK(sut.isPotentialIsland() == false);
+    }
+    SUBCASE("potentialsRemaining is decremented") {
+      CHECK(potentialsRemaining == 0);
     }
   }
   TEST_CASE("Setting notPotentialIsland on place with a nearestPlace") {
@@ -146,7 +150,8 @@ TEST_SUITE("Place::notPotentialIsland") {
     Place otherPlace("thing three", 5, 6);
     sut.setNearestPlace(&place);
     place.setNearestPlace(&otherPlace);
-    sut.notPotentialIsland();
+    long potentialsRemaining = 5;
+    sut.notPotentialIsland(potentialsRemaining);
 
     SUBCASE("sut.isPotentialIsland returns false") {
       CHECK(sut.isPotentialIsland() == false);
@@ -158,6 +163,29 @@ TEST_SUITE("Place::notPotentialIsland") {
     SUBCASE("otherPlace.isPotentialIsland returns false") {
       CHECK(otherPlace.isPotentialIsland() == false);
       CHECK(sut.nearestPlace()->nearestPlace()->isPotentialIsland() == false);
+    }
+    SUBCASE("potentialsRemaining is decremented") {
+      CHECK(potentialsRemaining == 2);
+    }
+  }
+  TEST_CASE("Setting notPotentialIsland on place with a nearestPlace cyclic chain") {
+    Place sut("thing one", 1, 2);
+    Place place("thing two", 3, 4);
+    sut.setNearestPlace(&place);
+    place.setNearestPlace(&sut);
+    long potentialsRemaining = 3;
+    sut.notPotentialIsland(potentialsRemaining);
+
+    SUBCASE("sut.isPotentialIsland returns false") {
+      CHECK(sut.isPotentialIsland() == false);
+      CHECK(place.nearestPlace()->isPotentialIsland() == false);
+    }
+    SUBCASE("place.isPotentialIsland returns false") {
+      CHECK(place.isPotentialIsland() == false);
+      CHECK(sut.nearestPlace()->isPotentialIsland() == false);
+    }
+    SUBCASE("potentialsRemaining is decremented") {
+      CHECK(potentialsRemaining == 1);
     }
   }
 }

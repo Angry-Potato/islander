@@ -109,7 +109,7 @@ TEST_SUITE("Islands::nextPotentialIsland") {
     long potentialsRemaining = 1;
 
     SUBCASE("Returns NULL and sets potentialsRemaining to 0") {
-      CHECK(Islands::nextPotentialIsland(potentialIsland, places, &potentialsRemaining) == (Place*)NULL);
+      CHECK(Islands::nextPotentialIsland(potentialIsland, places, potentialsRemaining) == (Place*)NULL);
       CHECK(potentialsRemaining == 0);
     }
   }
@@ -119,7 +119,7 @@ TEST_SUITE("Islands::nextPotentialIsland") {
     long potentialsRemaining = 1;
 
     SUBCASE("Returns NULL and sets potentialsRemaining to 0") {
-      CHECK(Islands::nextPotentialIsland(&potentialIsland, places, &potentialsRemaining) == (Place*)NULL);
+      CHECK(Islands::nextPotentialIsland(&potentialIsland, places, potentialsRemaining) == (Place*)NULL);
       CHECK(potentialsRemaining == 0);
     }
   }
@@ -129,7 +129,7 @@ TEST_SUITE("Islands::nextPotentialIsland") {
     long potentialsRemaining = -10;
 
     SUBCASE("Returns NULL and sets potentialsRemaining to 0") {
-      CHECK(Islands::nextPotentialIsland(&potentialIsland, places, &potentialsRemaining) == (Place*)NULL);
+      CHECK(Islands::nextPotentialIsland(&potentialIsland, places, potentialsRemaining) == (Place*)NULL);
       CHECK(potentialsRemaining == 0);
     }
   }
@@ -139,7 +139,7 @@ TEST_SUITE("Islands::nextPotentialIsland") {
     long potentialsRemaining = 1;
 
     SUBCASE("Returns potentialIsland and sets potentialsRemaining to 0") {
-      CHECK(*Islands::nextPotentialIsland(&potentialIsland, places, &potentialsRemaining) == potentialIsland);
+      CHECK(*Islands::nextPotentialIsland(&potentialIsland, places, potentialsRemaining) == potentialIsland);
       CHECK(potentialsRemaining == 0);
     }
   }
@@ -159,7 +159,7 @@ TEST_SUITE("Islands::nextPotentialIsland") {
     };
     long potentialsRemaining = 8;
 
-    Place* nextPotentialIsland = Islands::nextPotentialIsland(&initialPotential, places, &potentialsRemaining);
+    Place* nextPotentialIsland = Islands::nextPotentialIsland(&initialPotential, places, potentialsRemaining);
 
     SUBCASE("Returns soonest next potential island") {
       CHECK(*nextPotentialIsland == island);

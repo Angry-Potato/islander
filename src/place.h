@@ -20,14 +20,22 @@ struct Place {
   inline const bool isPotentialIsland() const {return _isPotentialIsland;};
   inline const std::string id() const {return _id;};
   inline const Vector2D position() const {return *_position;};
+  inline const bool hasNearestPlace() const {return _nearestPlace != (Place*)0;};
   inline const Place* nearestPlace() const {return _nearestPlace;};
   //TODO: optimise
   inline const long distanceToNearestPlace() const {return _nearestPlace == (Place*)0 ? 0 : Geometry::distanceBetween(*_position, _nearestPlace->position());};
 
-  inline void notPotentialIsland() {
+  inline void notPotentialIsland(long& potentialsRemaining) {
     _isPotentialIsland = false;
+    potentialsRemaining--;
     if (_nearestPlace != (Place*)0) {
-      _nearestPlace->notPotentialIsland();
+      if (*this == *_nearestPlace) {
+        _nearestPlace->_isPotentialIsland = false;
+        potentialsRemaining--;
+      }
+      else {
+        _nearestPlace->notPotentialIsland(potentialsRemaining);
+      }
     }
   };
   inline bool setNearestPlace(Place* place) {
