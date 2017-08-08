@@ -13,13 +13,13 @@ TEST_SUITE("PlaceFactory::create") {
       CHECK(PlaceFactory::create(input) == (Place*)NULL);
     }
   }
-  TEST_CASE("Given invalid string") {
-    std::string input = "Some days I like guacamole but other days I do not";
-
-    SUBCASE("Returns NULL") {
-      CHECK(PlaceFactory::create(input) == (Place*)NULL);
-    }
-  }
+  // TEST_CASE("Given invalid string") {
+  //   std::string input = "Some days I like guacamole but other days I do not";
+  //
+  //   SUBCASE("Returns NULL") {
+  //     CHECK(PlaceFactory::create(input) == (Place*)NULL);
+  //   }
+  // }
   TEST_CASE("Given valid string") {
     std::string input = "place0 1312573 8418602";
 

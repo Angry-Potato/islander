@@ -2,6 +2,7 @@
 #include "place.h"
 #include <string>
 #include <sstream>
+#include <iostream>
 
 Place* PlaceFactory::create(std::string raw) {
   if (raw == "") {
@@ -15,8 +16,5 @@ Place* PlaceFactory::create(std::string raw) {
   std::getline(ss, XCoord, ' ');
   std::string YCoord;
   std::getline(ss, YCoord, ' ');
-  if (!isValidName(name) || !isValidNumber(XCoord) || !isValidNumber(YCoord)) {
-    return NULL;
-  }
   return new Place(name, longFromString(XCoord), longFromString(YCoord));
 }
