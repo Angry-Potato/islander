@@ -9,5 +9,16 @@ Place* Islands::find(std::forward_list<Place*>& places) {
   if (listSize(places) < 3) {
     return places.front();
   }
+  /*
+  Place* potentialIsland
+  for each place in places
+    if (potentialIsland == NULL) {
+      potentialIsland = place
+    }
+
+
+
+
+  */
   return new Place();
 }
