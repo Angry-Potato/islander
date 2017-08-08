@@ -14,6 +14,18 @@ TEST_SUITE("Place") {
     SUBCASE("Id is empty string by default") {
       CHECK(sut.id() == "");
     }
+
+    SUBCASE("nearestPlace is NULL by default") {
+      CHECK(sut.nearestPlace() == (Place*)NULL);
+    }
+
+    SUBCASE("distanceToNearestPlace is 0 by default") {
+      CHECK(sut.distanceToNearestPlace() == 0);
+    }
+
+    SUBCASE("isPotentialIsland is true by default") {
+      CHECK(sut.isPotentialIsland() == true);
+    }
   }
   TEST_CASE("Place called pants at 3,5") {
     long x = 3;
@@ -115,6 +127,37 @@ TEST_SUITE("Place::setNearestPlace") {
 
     SUBCASE("Returns true") {
       CHECK(sut.setNearestPlace(&place) == true);
+    }
+  }
+}
+TEST_SUITE("Place::notPotentialIsland") {
+  TEST_CASE("Setting notPotentialIsland on place with no nearestPlace") {
+    Place sut;
+    sut.notPotentialIsland();
+
+    REQUIRE(sut.nearestPlace() == (Place*)NULL);
+    SUBCASE("isPotentialIsland returns false") {
+      CHECK(sut.isPotentialIsland() == false);
+    }
+  }
+  TEST_CASE("Setting notPotentialIsland on place with a nearestPlace") {
+    Place sut("thing one", 1, 2);
+    Place place("thing two", 3, 4);
+    Place otherPlace("thing three", 5, 6);
+    sut.setNearestPlace(&place);
+    place.setNearestPlace(&otherPlace);
+    sut.notPotentialIsland();
+
+    SUBCASE("sut.isPotentialIsland returns false") {
+      CHECK(sut.isPotentialIsland() == false);
+    }
+    SUBCASE("place.isPotentialIsland returns false") {
+      CHECK(place.isPotentialIsland() == false);
+      CHECK(sut.nearestPlace()->isPotentialIsland() == false);
+    }
+    SUBCASE("otherPlace.isPotentialIsland returns false") {
+      CHECK(otherPlace.isPotentialIsland() == false);
+      CHECK(sut.nearestPlace()->nearestPlace()->isPotentialIsland() == false);
     }
   }
 }
