@@ -6,5 +6,6 @@
 class Place;
 struct Places {
   static Place* nearestNeighbour(Place* origin, std::forward_list<Place*>& places);
+  static Place* firstPotentialIsland(std::forward_list<Place*>& places);
 };
 #endif

@@ -133,14 +133,14 @@ TEST_SUITE("Islands::nextPotentialIsland") {
       CHECK(potentialsRemaining == 0);
     }
   }
-  TEST_CASE("Given list with only one potentialIsland in it") {
+  TEST_CASE("Given list with only one place in it") {
     Place potentialIsland("hey", 3, 4);
     std::forward_list<Place*> places = { &potentialIsland };
     long potentialsRemaining = 1;
 
-    SUBCASE("Returns potentialIsland and sets potentialsRemaining to 0") {
-      CHECK(*Islands::nextPotentialIsland(&potentialIsland, places, potentialsRemaining) == potentialIsland);
-      CHECK(potentialsRemaining == 0);
+    SUBCASE("Returns NULL and sets potentialsRemaining to 1") {
+      CHECK(Islands::nextPotentialIsland(&potentialIsland, places, potentialsRemaining) == (Place*)NULL);
+      CHECK(potentialsRemaining == 1);
     }
   }
   TEST_CASE("Given list with valid other potential islands") {
@@ -158,11 +158,12 @@ TEST_SUITE("Islands::nextPotentialIsland") {
       &place7, &place8
     };
     long potentialsRemaining = 8;
+    initialPotential.setNearestPlace(&place2);
 
     Place* nextPotentialIsland = Islands::nextPotentialIsland(&initialPotential, places, potentialsRemaining);
 
     SUBCASE("Returns soonest next potential island") {
-      CHECK(*nextPotentialIsland == island);
+      CHECK(*nextPotentialIsland == place1);
     }
 
     SUBCASE("Sets not potential island on initialPotential and its nearestPlace") {
@@ -171,7 +172,7 @@ TEST_SUITE("Islands::nextPotentialIsland") {
     }
 
     SUBCASE("Updates potentialsRemaining") {
-      CHECK(potentialsRemaining == 5);
+      CHECK(potentialsRemaining == 6);
     }
   }
 }

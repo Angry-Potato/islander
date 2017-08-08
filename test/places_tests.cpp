@@ -41,3 +41,62 @@ TEST_SUITE("Places::nearestNeighbour") {
     }
   }
 }
+TEST_SUITE("Places::firstPotentialIsland") {
+  TEST_CASE("Given empty list") {
+    std::forward_list<Place*> places;
+
+    SUBCASE("Returns NULL") {
+      CHECK(Places::firstPotentialIsland(places) == (Place*)NULL);
+    }
+  }
+  TEST_CASE("Given list with potential islands") {
+    Place place0("place0", 1000000, 1000000);
+    Place place1("place1", 2000000, 2000000);
+    Place place2("place2", 1000000, 2000000);
+    Place place3("place3", 2000000, 1000000);
+    Place place4("place4", 5000000, 5000000);
+    Place place5("place5", 8000000, 8000000);
+    Place place6("place6", 9000000, 9000000);
+    Place place7("place7", 8000000, 9000000);
+    Place place8("place8", 9000000, 8000000);
+    Place place9("place9", 1000000, 8000000);
+    Place place10("place10", 2000000, 9000000);
+    Place place11("place11", 1000000, 9000000);
+    Place place12("place12", 2000000, 8000000);
+    Place place13("place13", 8000000, 1000000);
+    Place place14("place14", 9000000, 2000000);
+    Place place15("place15", 8000000, 2000000);
+    Place place16("place16", 9000000, 1000000);
+
+    std::forward_list<Place*> places = {
+      &place0, &place1, &place2, &place3, &place4, &place5, &place6,
+      &place7, &place8, &place9, &place10, &place11, &place12, &place13,
+      &place14, &place15, &place16
+    };
+    long potentialsRemaining = 17;
+    place0.notPotentialIsland(potentialsRemaining);
+    place1.notPotentialIsland(potentialsRemaining);
+    place2.notPotentialIsland(potentialsRemaining);
+
+    SUBCASE("Returns first potential island") {
+      CHECK(*Places::firstPotentialIsland(places) == place3);
+    }
+  }
+  TEST_CASE("Given list with no potential islands") {
+    Place place0("place0", 1000000, 1000000);
+    Place place1("place1", 2000000, 2000000);
+    Place place2("place2", 1000000, 2000000);
+
+    std::forward_list<Place*> places = {
+      &place0, &place1, &place2
+    };
+    long potentialsRemaining = 17;
+    place0.notPotentialIsland(potentialsRemaining);
+    place1.notPotentialIsland(potentialsRemaining);
+    place2.notPotentialIsland(potentialsRemaining);
+
+    SUBCASE("Returns NULL") {
+      CHECK(Places::firstPotentialIsland(places) == (Place*)NULL);
+    }
+  }
+}

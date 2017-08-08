@@ -28,8 +28,8 @@ struct Place {
   inline void notPotentialIsland(long& potentialsRemaining) {
     _isPotentialIsland = false;
     potentialsRemaining--;
-    if (_nearestPlace != (Place*)0) {
-      if (*this == *_nearestPlace) {
+    if (hasNearestPlace()) {
+      if (_nearestPlace->hasNearestPlace() && _id == _nearestPlace->nearestPlace()->id()) {
         _nearestPlace->_isPotentialIsland = false;
         potentialsRemaining--;
       }

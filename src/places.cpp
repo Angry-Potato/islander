@@ -24,3 +24,15 @@ Place* Places::nearestNeighbour(Place* origin, std::forward_list<Place*>& places
 
   return nearestNeighbour;
 }
+
+Place* Places::firstPotentialIsland(std::forward_list<Place*>& places) {
+  if (places.empty()) {
+    return NULL;
+  }
+  for (auto placeIterator = places.begin(); placeIterator != places.end(); placeIterator++) {
+    if ((*placeIterator)->isPotentialIsland()) {
+      return *placeIterator;
+    }
+  }
+  return NULL;
+}

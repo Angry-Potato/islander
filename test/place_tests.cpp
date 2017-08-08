@@ -26,6 +26,10 @@ TEST_SUITE("Place") {
     SUBCASE("isPotentialIsland is true by default") {
       CHECK(sut.isPotentialIsland() == true);
     }
+
+    SUBCASE("hasNearestPlace is false by default") {
+      CHECK(sut.hasNearestPlace() == false);
+    }
   }
   TEST_CASE("Place called pants at 3,5") {
     long x = 3;
