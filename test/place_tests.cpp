@@ -29,5 +29,17 @@ TEST_SUITE("Place") {
     SUBCASE("Id is pants") {
       CHECK(sut.id() == id);
     }
+
+    SUBCASE("It equals itself") {
+      CHECK(sut == sut);
+    }
+  }
+  TEST_CASE("Places called pants at 3,5, and tops at 9, 15") {
+    Place sut1("pants", 3, 5);
+    Place sut2("tops", 9, 15);
+
+    SUBCASE("They are not equal") {
+      CHECK((sut1 == sut2) == false);
+    }
   }
 }

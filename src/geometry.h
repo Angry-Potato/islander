@@ -5,6 +5,6 @@
 
 class Vector2D;
 struct Geometry {
-  static long distanceBetween(Vector2D* a, Vector2D* b);
+  static long distanceBetween(const Vector2D a, const Vector2D b);
 };
 #endif

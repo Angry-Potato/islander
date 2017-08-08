@@ -3,6 +3,9 @@ OBJS := $(SOURCES:%.cpp=%.o)
 TESTSOURCES := $(filter-out $(wildcard src/main*), $(SOURCES) $(shell find test -name '*.cpp'))
 TESTOBJS := $(filter-out $(wildcard src/main*), $(TESTSOURCES:%.cpp=%.o))
 DFLAG?=debug
+PCH_SRC = src/precompile.h
+PCH_HEADERS = src/places.h
+PCH_OUT = src/precompile.h.gch
 
 ifeq ($(shell sh -c 'uname -s'),Linux)
 	LIBFLAGS=-L. -Wl,-rpath=.
@@ -40,8 +43,11 @@ islander : $(OBJS) unit_test
 clean :
 	rm -f $(OBJS) $(TESTOBJS)
 
-%.o : %.cpp %.h
-	g++ $< -c -o $@ -Iinclude -Wall $(CFLAGS)
+$(PCH_OUT): $(PCH_SRC) $(PCH_HEADERS)
+	g++ -Iinclude -Wall $(CFLAGS) -o $@ $<
+
+%.o : %.cpp $(PCH_OUT)
+	g++ $< -c -o $@ -include $(PCH_SRC) -Iinclude -Wall $(CFLAGS)
 
 unit_test : test
 	./bin/test_islander -fc

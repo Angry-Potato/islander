@@ -12,6 +12,9 @@ struct Vector2D {
   inline long X() const {return _X;};
   inline long Y() const {return _Y;};
 
+  inline bool operator==(const Vector2D& rhs) const {
+    return this->X() == rhs.X() && this->Y() == rhs.Y();
+  };
 protected:
   long _X;
   long _Y;

@@ -12,7 +12,11 @@ struct Place {
   inline long X() const {return _position->X();};
   inline long Y() const {return _position->Y();};
   inline std::string id() const {return _id;};
+  inline const Vector2D position() const {return *_position;};
 
+  inline bool operator==(const Place& rhs) const {
+    return this->id() == rhs.id() && this->position() == rhs.position();
+  };
 protected:
   std::string _id;
   Vector2D* _position;
