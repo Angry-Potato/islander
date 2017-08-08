@@ -9,7 +9,7 @@ TEST_SUITE("Places::nearestNeighbour") {
     Place origin("hey");
     std::forward_list<Place*> places;
 
-    SUBCASE("Returns null") {
+    SUBCASE("Returns NULL") {
       CHECK(Places::nearestNeighbour(&origin, places) == (Place*)NULL);
     }
   }
@@ -17,7 +17,7 @@ TEST_SUITE("Places::nearestNeighbour") {
     Place origin("hey");
     std::forward_list<Place*> places = { &origin };
 
-    SUBCASE("Returns null") {
+    SUBCASE("Returns NULL") {
       CHECK(Places::nearestNeighbour((Place*)NULL, places) == (Place*)NULL);
     }
   }
@@ -25,7 +25,7 @@ TEST_SUITE("Places::nearestNeighbour") {
     Place origin("hey");
     std::forward_list<Place*> places = { &origin };
 
-    SUBCASE("Returns null") {
+    SUBCASE("Returns NULL") {
       CHECK(Places::nearestNeighbour(&origin, places) == (Place*)NULL);
     }
   }
