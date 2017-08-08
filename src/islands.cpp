@@ -25,7 +25,13 @@ Place* Islands::find(std::forward_list<Place*>& places) {
 
 
     function nextPotentialIsland::
+      if(potentialIsland == NULL || places.empty || potentialsRemaining < 0)
+        potentialsRemaining = 0
+        return NULL
       for each innerloopplace in places
+        if(innerloopplace == potentialIsland) {
+          continue;
+        }
         if (innerloopplace->nearestPlace == NULL) {
           innerloopplace->nearestPlace = Places::nearest(innerloopplace, places)
         }
@@ -46,5 +52,8 @@ Place* Islands::find(std::forward_list<Place*>& places) {
 
 
   */
+  return new Place();
+}
+Place* Islands::nextPotentialIsland(Place* potentialIsland, std::forward_list<Place*>& places, long* potentialsRemaining) {
   return new Place();
 }

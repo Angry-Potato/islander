@@ -101,3 +101,77 @@ TEST_SUITE("Islands::secondElement") {
     }
   }
 }
+TEST_SUITE("Islands::nextPotentialIsland") {
+  TEST_CASE("Given NULL potentialIsland") {
+    Place place1("hey");
+    std::forward_list<Place*> places = { &place1 };
+    Place* potentialIsland = NULL;
+    long potentialsRemaining = 1;
+
+    SUBCASE("Returns NULL and sets potentialsRemaining to 0") {
+      CHECK(Islands::nextPotentialIsland(potentialIsland, places, &potentialsRemaining) == (Place*)NULL);
+      CHECK(potentialsRemaining == 0);
+    }
+  }
+  TEST_CASE("Given empty places") {
+    std::forward_list<Place*> places;
+    Place potentialIsland("hey");
+    long potentialsRemaining = 1;
+
+    SUBCASE("Returns NULL and sets potentialsRemaining to 0") {
+      CHECK(Islands::nextPotentialIsland(&potentialIsland, places, &potentialsRemaining) == (Place*)NULL);
+      CHECK(potentialsRemaining == 0);
+    }
+  }
+  TEST_CASE("Given less than 0 potentialsRemaining") {
+    Place potentialIsland("hey");
+    std::forward_list<Place*> places = { &potentialIsland };
+    long potentialsRemaining = -10;
+
+    SUBCASE("Returns NULL and sets potentialsRemaining to 0") {
+      CHECK(Islands::nextPotentialIsland(&potentialIsland, places, &potentialsRemaining) == (Place*)NULL);
+      CHECK(potentialsRemaining == 0);
+    }
+  }
+  TEST_CASE("Given list with only one potentialIsland in it") {
+    Place potentialIsland("hey", 3, 4);
+    std::forward_list<Place*> places = { &potentialIsland };
+    long potentialsRemaining = 1;
+
+    SUBCASE("Returns potentialIsland and sets potentialsRemaining to 0") {
+      CHECK(*Islands::nextPotentialIsland(&potentialIsland, places, &potentialsRemaining) == potentialIsland);
+      CHECK(potentialsRemaining == 0);
+    }
+  }
+  TEST_CASE("Given list with valid other potential islands") {
+    Place initialPotential("initialPotential", 1000000, 1000000);
+    Place place1("place1", 2000000, 2000000);
+    Place place2("place2", 1000000, 2000000);
+    Place place3("place3", 2000000, 1000000);
+    Place island("place4", 5000000, 5000000); //<-- this is the island!
+    Place place5("place5", 8000000, 8000000);
+    Place place6("place6", 9000000, 9000000);
+    Place place7("place7", 8000000, 9000000);
+    Place place8("place8", 9000000, 8000000);
+    std::forward_list<Place*> places = {
+      &initialPotential, &place1, &place2, &place3, &island, &place5, &place6,
+      &place7, &place8
+    };
+    long potentialsRemaining = 8;
+
+    Place* nextPotentialIsland = Islands::nextPotentialIsland(&initialPotential, places, &potentialsRemaining);
+
+    SUBCASE("Returns soonest next potential island") {
+      CHECK(*nextPotentialIsland == island);
+    }
+
+    SUBCASE("Sets not potential island on initialPotential and its nearestPlace") {
+      CHECK(initialPotential.isPotentialIsland() == false);
+      CHECK(initialPotential.nearestPlace()->isPotentialIsland() == false);
+    }
+
+    SUBCASE("Updates potentialsRemaining") {
+      CHECK(potentialsRemaining == 5);
+    }
+  }
+}
