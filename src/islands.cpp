@@ -11,35 +11,34 @@ Place* Islands::find(std::forward_list<Place*>& places) {
   }
   /*
   Place* potentialIsland
-  Place* nextPotentialIsland
-  for each place in places
+  long potentialsRemaining = size(places)
+  while potentialsRemaining > 1
     if (potentialIsland == NULL) {
-      potentialIsland = place
+      potentialIsland = places.first
     }
     if (potentialIsland->nearestPlace == NULL) {
       potentialIsland->nearestPlace = Places::nearest(potentialIsland, places)
     }
-    nextPotentialIsland = nextPotentialIsland(potentialIsland, places)
-    if (nextPotentialIsland == potentialIsland) {
-      return potentialIsland
-    }
+    potentialIsland = nextPotentialIsland(potentialIsland, places, &potentialsRemaining)
 
-
+  return potentialIsland
 
 
     function nextPotentialIsland::
-      for each innerloopplace in places 
+      for each innerloopplace in places
         if (innerloopplace->nearestPlace == NULL) {
           innerloopplace->nearestPlace = Places::nearest(innerloopplace, places)
         }
         if innerloopplace->distToNearestPlace < potentialIsland->distToNearestPlace
           innerloopplace->isPotentialIsland = false
           innerloopplace->nearestPlace->isPotentialIsland = false
+          potentialsRemaining -= 2
         else
           potentialIsland->isPotentialIsland = false
           potentialIsland->nearestPlace->isPotentialIsland = false
+          potentialsRemaining -= 2
           return innerloopplace
-        return potentialIsland
+        return NULL
 
 
   */
