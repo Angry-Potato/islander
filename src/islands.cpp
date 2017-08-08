@@ -1,18 +1,21 @@
 #include "islands.h"
 #include "place.h"
 #include <forward_list>
+#include <iostream>
 
 Place* Islands::find(std::forward_list<Place*>& places) {
   if (places.empty()) {
     return NULL;
   }
 
-  long potentialsRemaining = listSize(places);
-  if (potentialsRemaining < 3) {
+  long initialSize = listSize(places);
+  if (initialSize < 3) {
     return places.front();
   }
 
   Place* potentialIsland = Places::firstPotentialIsland(places);
+  long potentialsRemaining = initialSize;
+  printf("Beginning search..\n");
   while (potentialsRemaining > 1) {
     if (potentialIsland == NULL || !potentialIsland->isPotentialIsland()) {
       potentialIsland = Places::firstPotentialIsland(places);
@@ -22,6 +25,7 @@ Place* Islands::find(std::forward_list<Place*>& places) {
     }
     potentialIsland = nextPotentialIsland(potentialIsland, places, potentialsRemaining);
   }
+  printf("\nEnd of search.\n");
   potentialIsland = Places::firstPotentialIsland(places);
   return potentialIsland;
 }
@@ -32,6 +36,8 @@ Place* Islands::nextPotentialIsland(Place* potentialIsland, std::forward_list<Pl
     return NULL;
   }
   for (auto placesIterator = places.begin(); placesIterator != places.end(); ++placesIterator) {
+    printf("\rPotential islands left to eliminate:               ");
+    printf("\rPotential islands left to eliminate: %ld", potentialsRemaining);
     Place* newPotentialIsland = *placesIterator;
     if (*newPotentialIsland == *potentialIsland) {
       continue;
@@ -44,7 +50,10 @@ Place* Islands::nextPotentialIsland(Place* potentialIsland, std::forward_list<Pl
     }
     else {
       potentialIsland->notPotentialIsland(potentialsRemaining);
-      return newPotentialIsland;
+      if (newPotentialIsland->isPotentialIsland()) {
+        return newPotentialIsland;
+      }
+      potentialIsland = newPotentialIsland;
     }
   }
   return NULL;

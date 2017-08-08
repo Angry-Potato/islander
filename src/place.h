@@ -26,12 +26,16 @@ struct Place {
   inline const long distanceToNearestPlace() const {return _nearestPlace == (Place*)0 ? 0 : Geometry::distanceBetween(*_position, _nearestPlace->position());};
 
   inline void notPotentialIsland(long& potentialsRemaining) {
-    _isPotentialIsland = false;
-    potentialsRemaining--;
+    if (_isPotentialIsland) {
+      _isPotentialIsland = false;
+      potentialsRemaining--;
+    }
     if (hasNearestPlace()) {
       if (_nearestPlace->hasNearestPlace() && _id == _nearestPlace->nearestPlace()->id()) {
-        _nearestPlace->_isPotentialIsland = false;
-        potentialsRemaining--;
+        if (_nearestPlace->_isPotentialIsland) {
+          _nearestPlace->_isPotentialIsland = false;
+          potentialsRemaining--;
+        }
       }
       else {
         _nearestPlace->notPotentialIsland(potentialsRemaining);
