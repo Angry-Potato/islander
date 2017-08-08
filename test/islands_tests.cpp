@@ -56,3 +56,48 @@ TEST_SUITE("Islands") {
     }
   }
 }
+TEST_SUITE("Islands::listSize") {
+  TEST_CASE("Given empty list") {
+    std::forward_list<Place*> places;
+
+    SUBCASE("Returns 0") {
+      CHECK(Islands::listSize(places) == 0);
+    }
+  }
+  TEST_CASE("Given populated list") {
+    Place place1("hey");
+    Place place2("there");
+    std::forward_list<Place*> places = { &place1, &place2 };
+
+    SUBCASE("Returns correct size") {
+      CHECK(Islands::listSize(places) == 2);
+    }
+  }
+}
+TEST_SUITE("Islands::secondElement") {
+  TEST_CASE("Given empty list") {
+    std::forward_list<Place*> places;
+
+    SUBCASE("Returns NULL") {
+      CHECK(Islands::secondElement(places) == (Place*)NULL);
+    }
+  }
+  TEST_CASE("Given list of 1") {
+    Place place1("hey");
+    std::forward_list<Place*> places = { &place1 };
+
+    SUBCASE("Returns NULL") {
+      CHECK(Islands::secondElement(places) == (Place*)NULL);
+    }
+  }
+  TEST_CASE("Given list of 3") {
+    Place place1("hey");
+    Place place2("there");
+    Place place3("pal");
+    std::forward_list<Place*> places = { &place1, &place2, &place3 };
+
+    SUBCASE("Returns second element") {
+      CHECK(*Islands::secondElement(places) == place2);
+    }
+  }
+}
