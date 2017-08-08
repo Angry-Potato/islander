@@ -7,7 +7,9 @@
 struct Place {
 
   Place(std::string id = "", long x = 0, long y = 0) : _id(id), _position(new Vector2D(x, y)) {};
-  ~Place() {};
+  ~Place() {
+    delete _position;
+  };
 
   inline long X() const {return _position->X();};
   inline long Y() const {return _position->Y();};
