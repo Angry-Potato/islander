@@ -47,7 +47,7 @@ struct Place {
       return false;
     }
     _nearestPlace = place;
-    _distanceToNearestPlace = Geometry::distanceBetween(*_position, *_nearestPlace->_position);
+    _distanceToNearestPlace = Geometry::squaredDistanceBetween(*_position, *_nearestPlace->_position);
     return true;
   };
 

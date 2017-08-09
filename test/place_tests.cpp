@@ -98,10 +98,10 @@ TEST_SUITE("Place::distanceToNearestPlace") {
     Place place("yellow lorry", p2X, p2Y);
     sut.setNearestPlace(&place);
 
-    SUBCASE("Distance between should be root(difference in X + difference in Y)") {
+    SUBCASE("Distance between should be difference in X + difference in Y") {
       long XDiff = p1X - p2X;
       long YDiff = p1Y - p2Y;
-      long expected = sqrt(XDiff*XDiff + YDiff*YDiff);
+      long expected = XDiff*XDiff + YDiff*YDiff;
       CHECK(sut.distanceToNearestPlace() == expected);
     }
     SUBCASE("Distance between should be the same if both are each others nearest place") {

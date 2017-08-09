@@ -15,7 +15,7 @@ Place* Places::nearestNeighbour(Place* origin, std::forward_list<Place*>& places
     if ((*placeIterator)->id() == origin->id()) {
       continue;
     }
-    long distToPlace = Geometry::distanceBetween((*placeIterator)->position(), origin->position());
+    long distToPlace = Geometry::squaredDistanceBetween((*placeIterator)->position(), origin->position());
     if (distToPlace < nearestDistance) {
       nearestDistance = distToPlace;
       nearestNeighbour = (*placeIterator);
