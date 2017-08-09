@@ -36,10 +36,9 @@ Place* Islands::nextPotentialIsland(Place* potentialIsland, std::forward_list<Pl
     return NULL;
   }
   for (auto placesIterator = places.begin(); placesIterator != places.end(); ++placesIterator) {
-    printf("\rPotential islands left to eliminate:               ");
-    printf("\rPotential islands left to eliminate: %ld", potentialsRemaining);
+    printf("\rPotential islands left to eliminate: %ld       ", potentialsRemaining);
     Place* newPotentialIsland = *placesIterator;
-    if (*newPotentialIsland == *potentialIsland) {
+    if (*newPotentialIsland == *potentialIsland || !newPotentialIsland->isPotentialIsland()) {
       continue;
     }
     if (!newPotentialIsland->hasNearestPlace()) {
