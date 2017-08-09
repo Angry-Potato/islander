@@ -24,7 +24,7 @@ struct Place {
   inline const Vector2D position() const {return *_position;};
   inline const bool hasNearestPlace() const {return _nearestPlace != (Place*)0;};
   inline const Place* nearestPlace() const {return _nearestPlace;};
-  //TODO: optimise
+
   inline const long distanceToNearestPlace() const {
     return _distanceToNearestPlace;
   };
