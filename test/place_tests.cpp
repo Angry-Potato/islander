@@ -19,8 +19,8 @@ TEST_SUITE("Place") {
       CHECK(sut.nearestPlace() == (Place*)NULL);
     }
 
-    SUBCASE("distanceToNearestPlace is 0 by default") {
-      CHECK(sut.distanceToNearestPlace() == 0);
+    SUBCASE("distanceToNearestPlace is -1 by default") {
+      CHECK(sut.distanceToNearestPlace() == -1);
     }
 
     SUBCASE("isPotentialIsland is true by default") {
@@ -63,8 +63,8 @@ TEST_SUITE("Place::distanceToNearestPlace") {
   TEST_CASE("Place with no nearestPlace set") {
     Place sut;
 
-    SUBCASE("Returns 0") {
-      CHECK(sut.distanceToNearestPlace() == 0);
+    SUBCASE("Returns -1") {
+      CHECK(sut.distanceToNearestPlace() == -1);
     }
   }
   TEST_CASE("Place and nearestPlace both on the X axis") {
@@ -127,7 +127,7 @@ TEST_SUITE("Place::setNearestPlace") {
   }
   TEST_CASE("Setting nearest place") {
     Place sut;
-    Place place;
+    Place place("other");
 
     SUBCASE("Returns true") {
       CHECK(sut.setNearestPlace(&place) == true);
